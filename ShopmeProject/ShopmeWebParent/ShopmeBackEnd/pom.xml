@@ -37,6 +37,11 @@
     	<artifactId>HikariCP</artifactId>
    </dependency>
 
+	<dependency>
+		<groupId>com.shopme</groupId>
+		<artifactId>ShopmeCommon</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
 	</dependencies>
 
 	<build>
