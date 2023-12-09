@@ -52,7 +52,40 @@ public class UserRepositoryTests {
 	public void testListAllUsers() {
 		Iterable <User> listUsers = repo.findAll();
 		listUsers.forEach(user -> System.out.println(user));
-		
 	}
 
+	@Test
+	public void testGetUserById() {
+		User userNam = repo.findById(1).get();
+		System.out.println(userNam);
+		assertThat(userNam).isNotNull();
+	}
+	
+	@Test
+	public void testUpdateUserDetails() {
+		User userNam = repo.findById(1).get();
+		userNam.setEnabled(true);
+		userNam.setEmail("namjavaprogrammer@gmail.com");
+		
+		repo.save(userNam);
+	}
+	@Test
+	public void testUpdateUserRoles() {
+		User userRavi = repo.findById(2).get();
+		Role roleEditor = new Role(3);
+		Role roleSalesperson = new Role(2);
+		
+		userRavi.getRoles().remove(roleEditor);
+		userRavi.addRole(roleSalesperson);
+		
+		repo.save(userRavi);
+	}
+	@Test
+	public void testDeleteUser() {
+		Integer userId = 2;
+		repo.deleteById(userId);
+		
+		
+		
+	}
 }
