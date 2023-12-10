@@ -1,5 +1,7 @@
 package com.shopme.common.entity;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,6 +21,10 @@ public class Role {
 	
 	@Column(length = 150, nullable = false) 
 	private String description;
+	
+	public Role (Integer id) {
+		this.id = id;
+	}
 	
 	public Role(String name) {
 		this.name = name;
@@ -52,4 +58,23 @@ public class Role {
 	
 	public Role() {
 	}
+
+	@Override
+	public String toString() {
+		return "Role [name=" + name + "]";
+	}
+
+	@Override
+	public int hashCode() {
+	    return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj) return true;
+	    if (obj == null || getClass() != obj.getClass()) return false;
+	    Role role = (Role) obj;
+	    return Objects.equals(id, role.id);
+	}
+	
 }
