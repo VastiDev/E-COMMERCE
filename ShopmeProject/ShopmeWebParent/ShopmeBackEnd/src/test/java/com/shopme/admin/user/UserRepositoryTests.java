@@ -37,7 +37,7 @@ public class UserRepositoryTests {
 	
 	@Test
 	public void testCreateNewUserWithTwoRoles() {
-		User userRavi = new User("ravi@gmail.com", "ravi2020", "Ravi", "kumar");
+		User userRavi = new User("ravi2@gmail.com", "ravi2020", "Ravi", "kumar");
 		Role roleEditor = new Role(3);
 		Role roleAssistant = new Role(5);
 		
@@ -82,10 +82,7 @@ public class UserRepositoryTests {
 	}
 	@Test
 	public void testDeleteUser() {
-		Integer userId = 2;
-		repo.deleteById(userId);
-		
-		
-		
+		Integer userId = 3;
+		repo.deleteById(userId);	
 	}
 }
