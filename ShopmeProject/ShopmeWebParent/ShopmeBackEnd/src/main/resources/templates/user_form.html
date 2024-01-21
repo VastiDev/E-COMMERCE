@@ -10,7 +10,7 @@
 
 	
 
-	<title>Create New User</title>
+	<title>[[${pageTitle}]]</title>
 
 	
 
@@ -178,15 +178,15 @@
 
 	<div>
 
-		<h2>Manage Users | Create New User</h2>
+		<h2>Manage Users | [[${pageTitle}]] </h2>
 
 	</div>
 
 	
 
 	<form th:action="@{/users/save}" method="post" style="max-width: 700px; margin: 0 auto" 
-
-	  th:object="${user}" onsubmit="return checkEmailUnique(this);">
+		th:object="${user}" onsubmit="return checkEmailUnique(this);">
+	  <input type="hidden" th:field="*{id}" />
 
 		<div class="border border-secondary rounded p-3">
 
@@ -238,7 +238,11 @@
 
 				<div class="col-sm-8">
 
-					<input type="password" class="form-control" th:field="*{password}" minlength="8" maxlength="20" />
+					<input th:if="${user.id == null}" type="password" class="form-control" 
+					th:field="*{password}" required minlength="8" maxlength="20" />
+					
+					<input th:if="${user.id != null}" type="password" class="form-control" 
+					th:field="*{password}" minlength="8" maxlength="20" />
 
 				</div>
 
@@ -373,10 +377,10 @@
 		url = "[[@{/users/check_email}]]";
 
 		userEmail = $("#email").val();
-
+		userId = $("#id").val();
 		csrfValue = $("input[name='_csrf']").val();
 
-		params  = {email: userEmail, _csrf: csrfValue};
+		params  = {id: userId,  email: userEmail, _csrf: csrfValue};
 
 		
 
