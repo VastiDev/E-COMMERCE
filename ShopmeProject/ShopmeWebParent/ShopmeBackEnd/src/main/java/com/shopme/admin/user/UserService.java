@@ -33,8 +33,9 @@ public class UserService {
 		return  (List<Role>) roleRepo.findAll();
 	}
 
-	public void save(User user) {
+	public User save(User user) {
 		boolean isUpdatingUser = (user.getId() != null);
+		
 		if (isUpdatingUser) {
 			User existingUser = userRepo.findById(user.getId()).get();
 			
@@ -47,13 +48,17 @@ public class UserService {
 		} else {
 			encodePassword(user);
 		}
-		userRepo.save(user);		
+		return userRepo.save(user);		
 	}
+	
+	
 	private void encodePassword(User user) {
 		String encodedPassword = passwordEncoder.encode(user.getPassword());
 		
 		user.setPassword(encodedPassword);
 	}
+	
+	
 	public boolean isEmailUnique(Integer id, String email) {
 		User userByEmail = userRepo.getUserByEmail(email);
 
