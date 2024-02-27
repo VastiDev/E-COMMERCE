@@ -3,6 +3,8 @@ package com.shopme.admin.user;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
@@ -32,7 +34,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/users/page/{pageNum}")
-	public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
+	public String listByPage(@PathVariable (name = "pageNum") int pageNum, Model model,
 			@Param("sortField") String sortField, @Param("sortDir") String sortDir,
 			@Param("keyword") String keyword
 			) {
@@ -149,9 +151,14 @@ public class UserController {
 		 String message = "The user ID" + id + "has been" + status;
 		 redirectAttributes.addFlashAttribute("message", message);
 		 
-		 return "redirect:/users";
-		 
-		 
+		 return "redirect:/users";		
+	}
+	
+	@GetMapping("/users/export/csv")
+	public void exportToCSV(HttpServletResponse response) throws IOException {
+		List<User> listUser = service.listAll();
+		UserCsvExporter exporter = new UserCsvExporter();
+		exporter.export(listUser, response);
 		
 	}
 }
